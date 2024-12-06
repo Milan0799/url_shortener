@@ -1,4 +1,5 @@
 class UrlsController < ApplicationController
+  skip_before_action :authenticate_request
   before_action :set_url, only: [:show]
 
   def new

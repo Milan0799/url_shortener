@@ -1,0 +1,37 @@
+openapi: 3.0.0
+info:
+  title: URL Shortener API
+  description: This API allows users to shorten URLs and access original URLs via shortened links.
+  version: 1.0.0
+
+paths:
+  /api/v1/urls:
+    post:
+      summary: "Creates a new shortened URL"
+      description: "This endpoint creates a new shortened URL for a given long URL."
+      operationId: "createUrl"
+      tags:
+        - "Urls"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                long_url:
+                  type: string
+              required:
+                - long_url
+      responses:
+        '201':
+          description: "Short URL created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shortened_url:
+                    type: string
+        '422':
+          description: "Invalid URL format"
