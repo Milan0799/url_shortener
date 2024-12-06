@@ -1,0 +1,20 @@
+<% shortened_url = params['shortened_url'] %>
+<div class="container">
+  <h1 class="title">URL SHORTENER</h1>
+
+  <%= form_with url: urls_path, method: :post, class: "url-form" do %>
+    <div class="form-group">
+      <%= label_tag :long_url, "Enter the long URL:", class: "label" %>
+      <%= text_field_tag :long_url, nil, required: true, class: "input-field" %>
+    </div>
+
+    <%= submit_tag "Shorten", class: "submit-button" %>
+  <% end %>
+
+  <% if params[:shortened_url].present? %>
+    <p class="shortened-url">Your shortened URL is: 
+      <%= link_to params[:shortened_url], params[:shortened_url], class: "shortened-link" %>
+    </p>
+  <% end %>
+</div>
+

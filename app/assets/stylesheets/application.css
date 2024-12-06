@@ -13,3 +13,102 @@
  *= require_tree .
  *= require_self
  */
+ /* Overall page styling */
+/* General page styling */
+/* General page styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-top: 0px;
+    margin-left: 60px;
+  }
+  
+  /* Styling the form */
+  .url-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .label {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #4c6ef5;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    outline: none;
+  }
+  
+  .input-field:focus {
+    border-color: #4c6ef5;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #4c6ef5;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #365df0;
+  }
+  
+  /* Styling for the shortened URL display */
+  .shortened-url {
+    font-size: 1.1rem;
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  .shortened-link {
+    color: #4c6ef5;
+    text-decoration: none;
+  }
+  
+  .shortened-link:hover {
+    text-decoration: underline;
+  }
+
+  
+  
