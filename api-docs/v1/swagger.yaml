@@ -1,14 +1,84 @@
 openapi: 3.0.0
 info:
   title: URL Shortener API
-  description: This API allows users to shorten URLs and access original URLs via shortened links.
+  description: |
+    The URL Shortener API allows you to shorten long URLs and retrieve the original URLs using shortened links. To access the API, you must authenticate with a **JWT token** that is obtained by logging in with your email and password.
+
+    **Authentication:**
+    - To authenticate, make a **POST** request to `/api/v1/login` with your **email** and **password** to receive a JWT token.
+    - Add the JWT token to the **Authorization** header as a Bearer token for subsequent requests to the API.
+
+    **API Usage:**
+    - Use the **POST** `/api/v1/urls` to shorten long URLs by providing a valid URL in the request body.
+    - The response will contain the shortened URL, which can be used to access the original URL.
+
+    **Example for Authorization:**
+    - First, login using your credentials to get a JWT token.
+    - Then, include the JWT token in the `Authorization` header of your requests.
+
   version: 1.0.0
 
+security:
+  - Bearer: []
+
+components:
+  securitySchemes:
+    Bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
 paths:
+  /api/v1/login:
+    post:
+      summary: "User login"
+      description: |
+        This endpoint allows users to log in and receive a JWT token. 
+        - **Authentication**: Provide the `email` and `password` to authenticate.
+        - **Response**: Upon successful login, you will receive a JWT token in the response.
+        - **Usage**: Use the JWT token for further API requests by adding it to the `Authorization` header as `Bearer <JWT token>`.
+      operationId: "loginUser"
+      tags:
+        - "Auth"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: "User's email address"
+                password:
+                  type: string
+                  description: "User's password"
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: "Login successful, returns JWT token"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: "JWT token used for subsequent requests"
+        '401':
+          description: "Invalid credentials"
+
   /api/v1/urls:
     post:
       summary: "Creates a new shortened URL"
-      description: "This endpoint creates a new shortened URL for a given long URL."
+      description: |
+        This endpoint creates a new shortened URL for a given long URL.
+        - **Authorization**: A valid JWT token is required in the `Authorization` header.
+        - **Request body**: Provide a `long_url` to shorten.
+        - **Response**: The response will include the `shortened_url` that you can use to access the original URL.
+        - **Example request**: `{"long_url": "https://example.com"}`
       operationId: "createUrl"
       tags:
         - "Urls"
@@ -21,6 +91,7 @@ paths:
               properties:
                 long_url:
                   type: string
+                  description: "The long URL to be shortened"
               required:
                 - long_url
       responses:
@@ -33,5 +104,11 @@ paths:
                 properties:
                   shortened_url:
                     type: string
+                    description: "The shortened URL"
+                  long_url:
+                    type: string
+                    description: "The long URL"
         '422':
           description: "Invalid URL format"
+        '401':
+          description: "Unauthorized - Missing or invalid JWT token"
